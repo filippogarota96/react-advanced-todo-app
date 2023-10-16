@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    background-color: #e8ebeb;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.absolute-center {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container {
+    @apply bg-white rounded w-[50%]
+
+}
+
+
+.button-blue {
+    @apply bg-blue-400 text-white rounded px-1 py-2
+}
