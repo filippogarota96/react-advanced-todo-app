@@ -3,31 +3,6 @@ import { TodoInput } from "./TodoInput";
 import { TodoItem } from "./TodoItem";
 
 
-const initialData = [
-    {
-        value: "Fare la spesa",
-        completed : false
-    },
-    {
-        value: "Andare a lavoro",
-        completed : true
-    },
-    {
-        value: "Andare al parco",
-        completed : true
-    },
-    {
-        value: "Lorem ipsum",
-        completed : false
-    },
-    {
-        value: "Andare in palestra",
-        completed : true
-    },
-    
-]
-
-
 function reducer(state, action) {
     switch (action.type) {
         case "add_new_item":
@@ -43,15 +18,14 @@ function reducer(state, action) {
 
 export function Todo() {
 
-    const [todos, dispatch] = useReducer(reducer, initialData)
-
-    const [filteredTodos, setFilteredTodos] = useState(todos);
+    const [todos, dispatch] = useReducer(reducer, [])
 
     const [filter, setFilter] = useState("all");
 
     const onNewTodo = (newTodo) => {
         dispatch({ type: "add_new_item", payload: { new_item: newTodo } })
     }
+
 
     const editTodoItem = (item, itemIndex) => {
         dispatch({
@@ -60,19 +34,18 @@ export function Todo() {
         })
     }
 
-    useEffect(() => {
-        
-        const filterMap = {
-            "all": todos,
-            "filter_completed": todos.filter(todo => todo.completed),
-            "filter_todo": todos.filter(todo => !todo.completed),
-        };
-    
-        setFilteredTodos(filterMap[filter]);
+    const computeFilteredTodos = () => {
+        if (filter === "all") {
+            return todos;
+        } else if (filter === "filter_completed") {
+            return todos.filter(item => item.completed);
+        } else if (filter === "filter_todo") {
+            return todos.filter(item => !item.completed);
+        }
+        return todos;
+    }
 
-    }, [filter])
-
-
+    const filteredTodos = computeFilteredTodos();
 
     return (
         <>

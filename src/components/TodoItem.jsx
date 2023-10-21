@@ -6,7 +6,6 @@ import { TrashIcon } from "./icons/TrashIcon"
 
 export function TodoItem({ item, index, editTodo }) {
 
-    console.log(item.completed)
     const [completed, setCompleted] = useState(item.completed);
     const [editing, setEditing] = useState(false);
     const [editingValue, setEditingValue] = useState(item.value);
